@@ -1,0 +1,54 @@
+body{
+    background-color: white;
+}
+.btnsize{
+    width: 70px;
+}
+
+.heading{
+    color: black;
+    animation: clrchange 0.8s infinite;
+}
+
+textarea
+{
+    resize: none;
+    border-radius: 5px;
+    
+}
+
+@keyframes clrchange
+{
+    0%{
+        color: black;
+    }
+    50%{
+        color: grey;
+    }
+    100%{
+        color: white;
+    }
+}
+
+
+.iconclr1
+{
+    color: red;
+}
+.iconclr2
+{
+    color: blueviolet;
+}
+
+@media only screen and (max-width: 360px) {
+    .btnsize{
+        width: 50px;
+    }
+    
+  }
+@media only screen and (max-width: 280px) {
+    .btnsize{
+        width: 40px;
+    }
+    
+  }

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flames</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="icon" href="logo.png" type="image/gif" sizes="16x16">
+</head>
+<body>
+    <!--
+    <div class="container">
+
+    </div>
+-->
+    <style>
+        *{
+        font-family:courier;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2 bg-danger text-white text-center"><h3>F</h3></div>
+            <div class="col-sm-2 bg-warning text-white text-center"><h3>L</h3></div>
+            <div class="col-sm-2 bg-secondary text-white text-center"><h3>A</h3></div>
+            <div class="col-sm-2 bg-danger text-white text-center"><h3>M</h3></div>
+            <div class="col-sm-2 bg-warning text-white text-center"><h3>E</h3></div>
+            <div class="col-sm-2 bg-secondary text-white text-center"><h3>S</h3></div>   
+        </div>
+    </div>
+
+    <!--
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p id="alert"></p>
+    </div>
+    -->
+    <div class="container p-4" style="display:none;" id="myAlert">
+        <div class="alert alert-success alert-dismissable" id="myAlert2">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            enter your sweet name
+        </div>
+    </div>
+
+
+    <div class="mydiv"></div>
+
+    <div class="container text-center p-4 shadow-lg">
+        <label for="fname"><h3>First name:)</h3></label>
+        <input class="form-control" type="text" id="fname" name="fname"><br><br>
+        <label for="sname"><h3>Second name:)</h3></label>
+        <input class="form-control" type="text" id="sname" name="sname"><br><br>
+        <button class="btn btn-success btn-lg" onclick="myFunction()">Try it</button>
+        <button class="btn btn-danger btn-lg" type="button" onClick="window.location.reload();">refresh</button>
+    </div>
+    <div class="container text-center bg-dark text-white">
+        <h1 id="mytext"></h1>
+    </div>
+   
+        
+    
+
+
+
+  <script>
+    function showAlert()
+    {
+        if($("#myAlert").find("div#myAlert2").length==0)
+        {
+          $("#myAlert").append("<div class='alert alert-success alert-dismissable' id='myAlert2'> <button type='button' class='close' data-dismiss='alert'  aria-hidden='true'>&times;</button>enter your sweet name</div>");
+        }
+        $("#myAlert").css("display", "");
+    }
+    function myFunction() 
+    {
+        var s = ((document.getElementById("fname").value).toLowerCase()).replace(/\s/g,'');
+        if(s == '')
+        {
+            //alert("enter your sweet name");
+            showAlert();
+            return;
+        }
+        a =  s.split(""); 
+       
+        var t = ((document.getElementById("sname").value).toLowerCase()).replace(/\s/g,'');
+        if(t == '')
+        {
+            //alert("enter your sweet name");
+            showAlert();
+            return;
+        }
+        b = t.split("");
+        
+        for (var i = 0; i < s.length; i++) 
+        {
+            if(t.includes(s.charAt(i)))
+            {
+                if(a.includes(s.charAt(i)) && b.includes(s.charAt(i)))
+                {
+                    var pos1 = a.indexOf(s.charAt(i));
+                    var pos2 = b.indexOf(s.charAt(i));
+                    a.splice(pos1, 1);
+                    b.splice(pos2, 1);
+                }
+            }
+        }
+        //alert(a);
+        //alert(b);
+
+        var leng = a.length + b.length;
+        //alert(leng);
+        if(leng == 0)
+        {
+            document.getElementById("mytext").innerHTML = ("you are utlimately the same");
+            return;
+        }
+        var flames = ['F','L','A','M','E','S'];
+        
+        
+        while(flames.length > 1)
+        {
+            pos = leng%(flames.length);
+
+            if(pos == 0) 
+            {
+                pos = flames.length;
+            }
+            flames = flames.slice(pos,flames.length).concat(flames.slice(0,pos-1)); 
+            console.log(flames);
+        }
+        var ans = (flames[0]);
+        var dict = {'F':'FRIENDS', 'L':'LOVER', 'A':'AFFECTION', 'M':'MARRIAGE', 'E':'ENEMY', 'S':'SIBLINGS'};
+        //alert(dict[ans]);
+        document.getElementById("mytext").innerHTML = dict[ans];
+    }
+    
+
+    </script>
+    
+</body>
+</html>

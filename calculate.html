@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="logo.png" type="image/gif" sizes="16x16">
+</head>
+<body>
+    <div class="container text-center">
+        <i id="iconclr" class="fa fa-lightbulb-o" style="font-size:48px; color:black;"></i>
+        <h1 class="p-4 heading">Lets Calculate</h1> 
+    <div class="p-4">
+    <textarea id="textarea1" style="width: 290px;"></textarea>  
+    <br>
+    <i class="fa fa-history" aria-hidden="true"  id="logs_color" onclick="showlog()"></i>
+     
+    <div class="container border bg-light text-dark" id="logs_block" style="height: 300px; width:300px; display:none">
+        <i class="fa fa-window-close float-right py-3" aria-hidden="true" onclick="close_log()"></i>
+        <p id="logs_block_text">  </p>
+    </div>
+
+
+    <p id="answer" style="height: 30px; color: red;"></p>
+    <button class="btn btn-secondary btnsize border border-dark" onclick="addtxt('textarea1','(')">(</button>
+    <button class="btn btn-secondary btnsize border border-dark" onclick="addtxt('textarea1',')')">)</button>
+    <button class="btn btn-secondary btnsize border border-dark" onclick="addtxt('textarea1','%')">%</button>
+    <button class="btn btn-secondary btnsize border border-dark" onclick="clearTextarea()">CE</button><br> <br>
+
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','7')">7</button>
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','8')">8</button>
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','9')">9</button> 
+    <button class="btn btn btn-secondary btnsize border border-dark" onclick="addtxt('textarea1','/')">/</button> <br><br>
+
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','4')">4</button>
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','5')">5</button>
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','6')">6</button>
+    <button class="btn btn-secondary btnsize border border-dark" onclick="addtxt('textarea1','*')">x</button> <br><br>
+
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','1')">1</button>
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','2')">2</button>
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','3')">3</button>
+    <button class="btn btn-secondary btnsize border border-dark" onclick="addtxt('textarea1','-')">-</button> <br><br>
+    
+    
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','0')">0</button>
+    <button class="btn btn-light btnsize border border-dark" onclick="addtxt('textarea1','.')">.</button>
+    <button class="btn btn-primary btnsize border border-dark" onclick="calc()">=</button>  
+    <button class="btn btn-secondary btnsize border border-dark" onclick="addtxt('textarea1','+')">+</button>
+    </div>
+    </div>
+
+
+</body>
+<script>
+
+    var log_text = ""; 
+
+    var iconclr = document.getElementById("iconclr"); 
+
+    iconclr.addEventListener("click",function(){
+        var currentcolor =  iconclr.style.color;
+        if(currentcolor == "black")
+        {
+            iconclr.style.color = "white";
+            document.body.style.backgroundColor = "black";
+            document.getElementById('logs_color').style.color = "white";
+        }
+        else
+        {
+            iconclr.style.color = "black";
+            document.body.style.backgroundColor = "white";
+            document.getElementById('logs_color').style.color = "black";
+        }
+    });
+    
+  
+    function clearTextarea()
+    {
+        document.getElementById("textarea1").value = '';  
+        document.getElementById('answer').textContent = ''; 
+        //alert('cleared');
+    }
+    function addtxt(input, num) 
+    {
+        document.getElementById("textarea1").value += num; 
+    }
+    function calc()
+    {
+        try {
+            var ques = document.getElementById("textarea1").value;  
+            if(ques == '')
+            {
+                alert('Provide Input');
+                return;
+            }
+            ans = (eval(ques));
+            document.getElementById('answer').textContent = ans+"";
+            log_text += ques +'<br>' + ans + '<br>'; 
+        }
+        catch(err) {
+            document.getElementById('answer').textContent = 'Invalid input';
+        }
+    }
+    function showlog()
+    {
+        //alert(log_text);
+        document.getElementById('logs_block').style.display = "block";
+        var ans_log_text = log_text;
+        if(ans_log_text == '')
+        {
+            ans_log_text = 'No Logs';
+        }
+        document.getElementById('logs_block_text').innerHTML = ans_log_text;
+    }
+    function close_log()
+    {
+        document.getElementById('logs_block').style.display = "none";
+    }
+    
+</script>
+</html>

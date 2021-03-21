@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Pop</title>
+    <link rel="icon" href="logo.png" type="image/gif" sizes="16x16">
+</head>
+
+<body class="bg-warning">
+    <style>
+        .bubble
+        {
+            height: 100px;
+            width: 100px;
+            background: linear-gradient(green 20%, yellow 80%);
+            border-radius: 50px;
+            position: relative;
+        }
+        #bubble1
+        {
+            left: 20px;
+            top: 10px;
+            animation: unset;
+        }
+        #bubble2
+        {
+            left: 40px;
+            top: 70px;
+        }
+        #bubble3
+        {
+            left: 170px;
+            top: 80px;
+        }
+        #bubble4
+        {
+            left: 90px;
+            top: 100px;
+        }
+        #bubble5
+        {
+            left: 180px;
+            top: 0px;
+        }
+    </style>
+    <h1 class="text-center">POP!</h1>
+    
+    <div class="text-center">
+        <div class="btn btn-primary" id="btnstart" onclick="start()">start</div>
+        Time: <span id="counter">0</span>
+        <h1 id="wintext"></h1>
+        <div class="btn btn-primary" id="btnreload" style="display:none; width:auto;" onclick="location.reload();">Reload</div>
+    </div>
+    
+    <div class="container bg-danger" id="bggame" style="height: 500px; width: 500px; margin:auto; display:none;">
+        <div class="bubble" id="bubble1" onclick="pop(this)"></div>
+        <div class="bubble" id="bubble2" onclick="pop(this)"></div>
+        <div class="bubble" id="bubble3" onclick="pop(this)"></div>
+        <div class="bubble" id="bubble4" onclick="pop(this)"></div>
+        <div class="bubble" id="bubble5" onclick="pop(this)"></div>
+    </div>  
+    
+</body>
+
+
+<script>  
+
+var myVar = null;
+var counter = 0;
+var timeCounter = 0;
+const hitsound = new Audio('hitsound.mp3');
+function start()
+{
+    document.getElementById('bggame').style.display = "block";
+    myVar = setInterval(myTimer, 1000);
+}
+
+function pop(line)
+{
+    document.getElementById(line.id).style.display = "none";
+    hitsound.play();
+    checkwin();
+}
+
+function checkwin()
+{
+    counter+=1; 
+    if(counter == 5)
+    {
+        document.getElementById('bggame').style.display = "none";
+        document.getElementById('btnstart').style.display = "none";
+        document.getElementById('btnreload').style.display = "block";
+        document.getElementById('wintext').innerHTML = "You Win";
+        clearInterval(myVar);
+    }
+}
+
+function myTimer()
+{
+    timeCounter += 1;
+    document.getElementById("counter").innerHTML = timeCounter;
+    if(timeCounter == 11)
+    {
+        //alert('You Lost');
+        document.getElementById('bggame').style.display = "none";
+        document.getElementById('btnstart').style.display = "none";
+        document.getElementById('btnreload').style.display = "block";
+        document.getElementById('wintext').innerHTML = "You Lost";
+        clearInterval(myVar);
+    }
+}
+</script>
+</html>
